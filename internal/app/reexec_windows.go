@@ -5,6 +5,8 @@ package app
 import (
 	"os"
 	"os/exec"
+
+	"github.com/aiii-dot-id/aii-os/internal/install"
 )
 
 // .
@@ -18,7 +20,7 @@ func reexecSelf() error {
 	}
 	cmd := exec.Command(exe, os.Args[1:]...)
 	cmd.Stdout, cmd.Stderr, cmd.Stdin = os.Stdout, os.Stderr, os.Stdin
-	if err := cmd.Start(); err != nil {
+	if err := install.StartDetached(cmd); err != nil {
 		return err
 	}
 	os.Exit(0)
